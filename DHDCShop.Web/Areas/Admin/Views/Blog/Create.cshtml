@@ -1,0 +1,90 @@
+﻿@model DHDCShop.Models.Model.Blog
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<script src="https://cdn.ckeditor.com/ckeditor5/35.2.0/super-build/ckeditor.js"></script>
+
+<style>
+
+
+    #image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 1024px;
+        height: 609px;
+        opacity: 0;
+        cursor: pointer;
+    }
+</style>
+@using (Html.BeginForm("Create", "Blog", FormMethod.Post,
+                            new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div>
+        <h4 class="me-4">BLOG</h4>
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            Blog name
+            <div class="w-50">
+                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group mt-4">
+            Image
+            <div class="w-100 d-flex">
+                <div style="position:relative;">
+                    <image height="306" width="512" id="imageDisplay" class="img-responsive">
+
+                    </image>
+                    <input type="file" name="image" accept=".jpg, .png, .jpeg" id="image" />
+                </div>
+
+            </div>
+        </div>
+
+        <div class="mt-4">Content</div>
+        <div class="card card-body ">
+
+            <div class="w-100">
+                @Html.TextAreaFor(model => model.Content, new { @class = "form-control", @id = "contentEditor" })
+            </div>
+        </div>
+
+
+
+
+        <div class="mt-4 form-group d-flex">
+            <div class="col-md-offset-2 mb-3 ">
+                <input type="submit" value="Create" class="btn btn-default bg-success opacity-75 text-white text-center border-0 me-2" />
+            </div>
+            <div>
+                <a href="@Url.Action("Index","Blog")" class="btn btn-default bg-dark opacity-50 text-white text-center border-0">Back to List</a>
+            </div>
+        </div>
+    </div>
+}
+
+
+<script>
+     document.getElementById('image').addEventListener('change', show, false);
+
+    function show(evt) {
+        var input = evt.target;
+        if (input.files && input.files[0]) {
+            var filerdr = new FileReader();
+            filerdr.onload = function (e) {
+                $('#imageDisplay').attr('src', e.target.result);
+            }
+            filerdr.readAsDataURL(input.files[0]);
+        }
+    }        
+</script>
+<script src="~/Public/Plugin/CKEditor.js"></script>

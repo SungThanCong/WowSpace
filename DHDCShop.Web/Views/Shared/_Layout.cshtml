@@ -1,0 +1,180 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="~/Public/main.css" type="text/css" />
+    @*<link href="~/Public/collections.css" rel="stylesheet" type="text/css" />*@
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+    <link href="~/Public/_Layout.css" rel="stylesheet" />
+
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Scripts/bootstrap.bundle.min.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+   
+    <script src="https://cdn.ckeditor.com/ckeditor5/35.2.1/classic/ckeditor.js"></script>
+    <link href="~/Public/Plugin/ckeditor.css" rel="stylesheet" />
+
+    <script src="~/Scripts/jquery.signalR-2.2.1.min.js"></script>
+    <script src="~/signalr/hubs"></script>
+
+</head>
+
+<body class="display-card-active">
+    <header class="header">
+        <div class="grid">
+            <nav class="header_navbar">
+                <nav class="navbar navbar-expand-sm " style=" background-color: #f8f8f8;">
+                    <div class="header_navbar-logo">
+                        <img src="~/Public/Assets/5.png" alt="Logo Shoes" class="logo  d-none d-md-inline-block" width="100" height="100">
+                        <div class="d-inline-block d-md-none">
+                            <i id="navigation-button" class="bi bi-list bi-lg fw-bold text-dark"></i>
+                        </div>
+
+                    </div>
+                    <!-- Links -->
+                    <div id="navigation-open-div" class="d-none">
+                        <div>
+                            <div id="navigation-open-div-close">
+                                <i class="bi bi-x"></i>
+                            </div>
+                        </div>
+                        <div class="navigation-open-div-item">
+                            <a class="nav-link text-white" href="@Url.Action("Index","Home")">Home</a>
+                        </div>
+                        <div class="navigation-open-div-item">
+                            <a class="nav-link  text-white" href="@Url.Action("Index","Collection")">Collections</a>
+                        </div>
+
+                        <div class="navigation-open-div-item">
+                            <a class="nav-link blogs-color text-white" href="@Url.Action("Index","Blog")">Blogs</a>
+                        </div>
+                        <div class="navigation-open-div-item">
+                            <a class="nav-link text-white" href="@Url.Action("Contact","Home")">Contact</a>
+                        </div>
+                    </div>
+                    <ul class="navbar-nav d-none d-md-flex">
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Index","Home")">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Index","Collection")">Collections</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link blogs-color" href="@Url.Action("Index","Blog")">Blogs</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Contact","Home")">Contact</a>
+                        </li>
+                    </ul>
+                    <ul class="header_navbar-menu text-start">
+                        <li class="header_navbar-menu-item ">
+                            <div id="icon-cart">
+                                <i class="fa-solid fa-cart-shopping"></i>
+                            </div>
+
+                        </li>
+                        <li class="header_navbar-menu-item header_navbar-menu-item-avatar">
+                            <i class="fa-solid fa-user"></i>
+
+
+                            <ul class="header_navbar-menu-item-user">
+                                <li class="header_navbar-menu-item-user-like wishlist">
+                                    <i class="fa-solid fa-heart"></i>
+                                    <a class="likea text-decoration-none" href="@Url.Action("WishList","User")">Wishlist</a>
+                                </li>
+
+                                <li class="header_navbar-menu-item-user-like login">
+                                    <i class="fa-solid fa-user"></i>
+                                    @if (User.Identity.IsAuthenticated && User.IsInRole("user"))
+                                    {
+                                        <a class="likea text-decoration-none" href="@Url.Action("Index","User")">Profile</a> }
+                                    else
+                                    {
+                                        <a class="likea text-decoration-none" href="@Url.Action("SignInUp","User")">Login</a>}
+
+                                </li>
+
+                                <li class="header_navbar-menu-item-user-like checkout">
+
+                                    <i class="fa-solid fa-basket-shopping"></i>
+                                    <a class="likea text-decoration-none" href="@Url.Action("Index","Purchasing")">Checkout</a>
+                                </li>
+                                @if (User.Identity.IsAuthenticated && User.IsInRole("user"))
+                                {
+                                    
+                                    <li class="header_navbar-menu-item-user-like order-history">
+                                        <i class="fa-solid fa-truck"></i>
+                                        <a class="likea text-decoration-none" href="@Url.Action("Index","Order")">Order History</a>
+                                    </li>
+
+                                    <li class="header_navbar-menu-item-user-like checkout">
+
+                                        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                                        <a class="likea text-decoration-none" href="@Url.Action("Logout","User")">Logout</a>
+                                    </li>
+                                }
+
+                            </ul>
+                        </li>
+                        <li class="header_navbar-menu-item header_navbar-menu-item-search-nav">
+                            <i class="fa-solid fa-magnifying-glass header_navbar-menu-item-icon-search"></i>
+                            <div class="header_navbar-menu-item-search">
+                                <input class="header_navbar-menu-item-search-input" type="search" placeholder="Search...">
+                                <button class="header_navbar-menu-item-search-btn" type="submit">
+                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                </button>
+                            </div>
+                        </li>
+                    </ul>
+
+                </nav>
+            </nav>
+        </div>
+
+    </header>
+    <div class="display-card d-none">
+        @Html.Partial("_Cart")
+    </div>
+   
+        @Html.Partial("_ChatBox")
+    
+    <div class="">
+        @RenderBody()
+        <hr />
+    </div>
+    <script type="text/javascript" src="~/Public/Cart.js"></script>
+    <script>
+        var navigation = document.getElementById("navigation-button");
+        var navigation_open = document.getElementById("navigation-open-div");
+        var navigation_open_close = document.getElementById("navigation-open-div-close");
+
+        navigation.onclick = () => {
+            if (navigation_open.classList.contains("d-none")) {
+                navigation_open.classList.add("anim-appear");
+                navigation_open.classList.remove("d-none-anim");
+                navigation_open.classList.remove("d-none");
+            }
+        }
+        navigation_open_close.onclick = () => {
+            if (!navigation_open.classList.contains("d-none")) {
+                navigation_open.classList.add("d-none-anim");
+                setTimeout(function () {
+                    navigation_open.classList.add("d-none");
+                    navigation_open.classList.remove("anim-appear");
+                }, 300);
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+﻿@model IEnumerable<DHDCShop.Models.Model.Order>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    <link href="~/Areas/Admin/Assets/ListProduct.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/Assets/table_libary/paginate.css" rel="stylesheet" />
+
+}
+<style>
+    div.paginate input[type='button'].active {
+        background-color: burlywood;
+    }
+
+    div.paginate input[type='button'] {
+        color: black;
+    }
+</style>
+
+<div class="d-flex justify-content-between mb-4 ">
+    <h2 class="fw-bold">Orders</h2>
+</div>
+@*table-striped*@
+
+<div class="d-flex">
+    <input type="search" id="searchBox" class="mb-3" placeholder="Filter...">
+    <div class="d-flex mb-3 justify-content-end">
+        <button class="btn btn-primary text-white option opacity-100 option-all">All</button>
+        <button class="btn btn-warning  text-white option option-shipping">Shipping</button>
+        <button class="btn btn-info text-white option option-pending">Pending</button>
+        <button class="btn btn-dark text-white option option-cancel">Cancel</button>
+        <button class="btn btn-success  text-white option option-complete">Completed</button>
+    </div>
+</div>
+
+@Html.Action("_OrderTable", "Order", new { page = 1 })
+
